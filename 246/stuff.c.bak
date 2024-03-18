@@ -1,0 +1,56 @@
+	char* toString(const intSet s) {
+// 1000 is initial buffer capacity
+int buffer_cap = 1000;
+// create a buffer char array to hold string
+char* buffer = (char*)malloc(sizeof(char) * buffer_cap);
+int index = 0; // index to write in buffer
+// first add {
+buffer[index] = '{';
+index++;
+// get items from set as array of integer
+int* items = toArray(s);
+// write each item from set to buffer
+for (int i = 0; i < card(s); i++) {
+char* number = (char*)malloc(sizeof(char) * 15);
+// convert integer to char array
+sprintf(number, "%d", items[i]);
+int size = strlen(number);
+// add all characters to buffer
+for (int j = 0; j < size; j++) {
+// check for buffer capacity
+if (buffer_cap < index + 3) { // last 2 index for "}" and "\0"
+// double buffer capacity
+buffer_cap = buffer_cap * 2;
+char* temp = (char*)malloc(sizeof(char) * buffer_cap);
+// copy the array
+for (int b = 0; b < index; b++) {
+temp[b] = buffer[b];
+}
+// remove old buffer
+free(buffer);
+// re assign buffer
+buffer = temp;
+}
+buffer[index] = number[j];
+index++;
+}
+// add comma
+if (i < card(s) - 1) {
+buffer[index] = ',';
+index++;
+}
+// free number memory
+free(number);
+}
+// add last }
+buffer[index] = '}';
+index++;
+buffer[index] = '\0';
+// create a new char array to return
+char* str = (char*)malloc(sizeof(char) * strlen(buffer));
+strcpy(str, buffer);
+// free allocated memory
+free(items);
+free(buffer);
+return str;
+}

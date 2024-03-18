@@ -1,0 +1,125 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+#include "rat.h"
+#include <string.h>
+
+rat createRat(int n, int d) {
+	rat cRat = malloc(sizeof(rat));
+	cRat->n=n;
+	cRat->d=d;
+	if(wellFormed(cRat)==false) {
+		printf("-ERROR- the rational number created is undefined %s",toString(cRat));
+		exit(EXIT_FAILURE);
+	}
+	return cRat;
+}
+rat norm(const rat in){
+	rat out = createRat(in->n,in->d);
+	if (in->d<0) {
+		out->n=-in->n;
+		out->d=-in->d;
+	}
+	return out;
+}
+int LCD(int n, int d) {
+	int t =n;
+	int i,LCD;
+	if(d>n) t=d;
+	for(i=2;i<t;i++) {
+		if(n%i==0&&d%i==0) { return i;}
+		
+	}
+}
+
+rat reduce(const rat in) {
+	int redFactor = LCD(in->n,in->d);
+	rat out = createRat(in->n/redFactor,in->d/redFactor);
+	return out;
+}
+
+int cmp(const rat r1, const rat r2) {
+	float cmpR1 = (float) r1->n/r1->d;
+	float cmpR2 = (float) r2->n/r2->d;
+	if(cmpR1==cmpR2) return 0;
+	if(cmpR1<cmpR2) return -1;
+	if(cmpR1>cmpR2) return 1;
+}
+
+rat add(const rat r1, const rat r2) {
+	rat add1 = norm(r1);
+	rat add2 = norm(r2);
+	int num=(add1->n*add2->d)+(add2->n*add1->d);
+	int dom=add1->d*add2->d;
+	rat GCD = createRat(num,dom);
+		free(add1);
+	free(add2);
+	GCD = reduce(GCD);
+		GCD = norm(GCD);
+	return GCD;
+}
+
+rat sub(const rat r1, const rat r2) {
+	rat add1 = norm(r1);
+	rat add2 = norm(r2);
+	int num=(add1->n*add2->d)-(add2->n*add1->d);
+	int dom=add1->d*add2->d;
+	rat GCD = createRat(num,dom);
+		free(add1);
+	free(add2);
+	GCD = reduce(GCD);
+		GCD = norm(GCD);
+	return GCD;
+}
+
+rat mul(const rat r1, const rat r2) {
+	rat add1 = norm(r1);
+	rat add2 = norm(r2);
+	int num=add1->n*add2->n;
+	int dom=add1->d*add2->d;
+	rat GCD = createRat(num,dom);
+		free(add1);
+	free(add2);
+	GCD = reduce(GCD);
+		GCD = norm(GCD);
+	return GCD;
+}
+
+rat divide(const rat r1, const rat r2) {
+	if(r2->n==0) {
+	printf("-ERROR- divide by zero (%s)/(%s)",toString(r1),toString(r2));
+		exit(EXIT_FAILURE);
+	}
+	int num=r1->n*r2->d;
+	int dom=r1->d*r2->n;
+	rat GCD = createRat(num,dom);
+	GCD = reduce(GCD);
+	GCD = norm(GCD);
+	return GCD;
+}
+
+rat inverse(const rat in) {
+	rat out = createRat(in->n,in->d);
+	int t;
+	t=in->n;
+	out->n=in->d;
+	out->d=t;
+	if(wellFormed(out)==false) {
+		printf("ERROR the rational number inversed is undefined %s",toString(out));
+		exit(EXIT_FAILURE);
+	}
+	return out;
+}
+
+bool wellFormed(const rat in) {
+	if(in->d==0) return false;
+	return true;
+}
+
+char *toString(const rat in) {
+	char *ratString = malloc(sizeof(char));
+	int n=in->n;
+	int d=in->d;
+	sprintf(ratString,"%d/%d",in->n,in->d);
+	return ratString;
+}

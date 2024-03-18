@@ -1,0 +1,12 @@
+Flytrap
+ifenemy 4
+left
+go 1
+infect
+go 1
+end
+
+The flytrap sits in one place and spins.
+It infects anything which comes in front.
+Flytraps do well when they clump.
+

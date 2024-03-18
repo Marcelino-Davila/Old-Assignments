@@ -1,0 +1,2 @@
+pacman -Syu
+pacman -Su

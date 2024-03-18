@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <math.h>
+
+int main (void) {
+	printf("  ,_____ ,         /$$   /$$ /$$$$$$$   /$$$$$$ \n");
+	printf("  ,._ ,_. 7\\      | $$  | $$| $$    $$ /$$    $$ \n");
+	printf(" j `-'     /      | $$  | $$| $$    $$| $$ \n");
+	printf(" |o_, o    \\      | $$  | $$| $$$$$$$ | $$ \n");
+	printf(".`_y_`-,'   !     | $$  | $$| $$    $$| $$ \n");
+	printf("|/   `, `._ `-,   | $$  | $$| $$    $$| $$     $$\n");
+	printf("|_     \\   _.'*\\  |  $$$$$$/| $$$$$$$ |  $$$$$$/ \n");
+	printf("  >--,-'`-'*_*'``  \\______/ |_______/  \\______/ \n");
+	printf("            \"Our Barker Guards Your Future\" \n");
+	
+	float principleAmount=0, monthlyPayment=0;
+	float duration=0;
+	int years=0, months=0;
+
+	printf("Hello this is a loan approval calculator that will determine how long\nit will take you to pay back the loan. ");
+	printf("You will have to pay back\n1.5 the principle(the amount you borrow)\n");
+	printf("Enter the amount you would like to borrow. \n");
+	fflush(stdout);
+	scanf("%f", &principleAmount);
+	printf("Enter the amount you will pay back every month \n");
+	fflush(stdout);
+	scanf("%f", &monthlyPayment);
+	duration=(principleAmount*1.5)/monthlyPayment;
+	years=floor(duration/12);
+	months=ceil(duration-(years*12));
+	if (months == 12) {
+		months = 0;
+		years += years;
+	} 
+	
+	
+		
+	printf("It takes %d years and %d months to repay the loan", years, months);
+	return 0;
+}

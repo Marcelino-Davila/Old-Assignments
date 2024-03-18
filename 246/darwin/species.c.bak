@@ -1,0 +1,61 @@
+#include "species.h"
+#include "instruction.h"
+#include <string.h>
+
+struct speciesType {
+	FILE* file;
+	char* fname;
+	char* sname;
+	int numLines;
+	intstruction instructions;
+};
+
+species createSpecies(char* file); // passed the file name of the species file 
+void freeSpecies(species);         // frees up all memory used for species 
+  
+FILE *getFilePtr(species x) { return x->file }
+
+void setFilePtr(species x,FILE* f) {
+	x->file=f;
+}
+
+char *getFileName(species x) { return x->fname; }
+
+void setFileName(species x,char* n) {
+	int i;
+	for(i=0;i<strlen(n);i++) {
+		x->fname[i] = n[i];
+	}
+}
+	
+char *getSpeciesName(species x) { return x->sname; }
+
+void setSpeciesName(species x,char* s) {
+	int i;
+	for(i=0;i<strlen(n);i++) {
+		x->sname[i] = n[i];
+	}
+}
+
+void addInstruct(species s, instruction ins) {
+	s->numLInes++;
+	fprintf(s->file, toOperatorString(getOperator
+}	/* 1st line == 0 */
+// adds instruction ins to end of species code
+void setInstruct(species s,instruction ins,int n);
+// set instruction #n to ins in species s
+instruction getInstruct(species s,int n);
+// returns instruction #n for species s
+
+int getLinesOfCode(species x) { return x->numLines; } 
+
+char *toSpeciesString(species x) {
+	char* buff = malloc(strlen(x->name)*4*sizeof(char));
+	sprintf(buff, "(%s,lines:%d",x->name,x->numLines);
+	char* str = malloc(strlen(buff)*sizeof(char));
+	strcpy(str,buff);
+	free buff;
+	return str;
+}
+
+	/* format: "(name,lines:0)" */

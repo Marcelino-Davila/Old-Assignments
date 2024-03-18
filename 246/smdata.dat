@@ -1,0 +1,18 @@
+
+inp
+ldc 1
+10: nop
+lda 2
+lda 1
+gtr
+not
+jmpz 99
+lda 2
+dup
+out
+ldc 1
+add
+sto 2
+jmp 10
+99: nop 
+halt

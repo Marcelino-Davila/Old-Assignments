@@ -1,0 +1,57 @@
+
+#include <stdio.h>
+#include <math.h>
+double distance(double, double, double, double);
+
+int main(void) {
+	
+	const double latA = 35.0;
+	const double latB = 38.0;
+	const double latC = 32.0;
+	const double longA = 80.0;
+	const double longB = 78.0;
+	const double longC = 82.0;
+	const double pi = 22.0 / 7.0;
+	double latARad, latBRad, latCRad, longARad, longBRad, longCRad;
+	double uLat, uLong;
+	double distanceA, distanceB, distanceC;
+	
+	printf("what are your longitude and latidue coordinates? \n");
+	fflush(stdout);
+	scanf("%lf %lf", &uLat, &uLong);
+	if ((uLat >= 0) || (uLong >= 0)) {
+	latARad = latA * (pi / 180);
+	latBRad = latB * (pi / 180);
+	latCRad = latC * (pi / 180);
+	longARad = longA * (pi / 180);
+	longBRad = longB * (pi / 180);
+	longCRad = longC * (pi / 180);
+	uLat = uLat * (pi / 180);
+	uLong = uLong * (pi / 180);
+	distanceA = distance(uLat, uLong, latARad, longARad) * (180 * 60) / pi;
+	distanceB = distance(uLat, uLong, latBRad, longBRad) * (180 * 60) / pi;
+	distanceC = distance(uLat, uLong, latCRad, longCRad) * (180 * 60) / pi;
+	if ((distanceA <= distanceC) && (distanceA <= distanceB) && (distanceA <= 4840)) {
+		printf("The nearest airbase is Aberport with a distance of %.02lf nautical miles", distanceA);
+	}
+	else if ((distanceB <= distanceA) && (distanceB <= distanceC) && (distanceB <= 4840)) {
+		printf("The nearest airbase is Benson with a distance of %.02lf nautical miles", distanceB);
+	}
+	else if (( distanceC <= distanceA) && (distanceC <= distanceB) && (distanceC <= 4840)) {
+		printf("The nearest airbase is Cosford with a distance of %.02lf nautical miles", distanceC);
+	}
+	else 
+		printf("The emergency location is out of range");
+	}
+	
+	else 
+		printf("The emergency location is out of range");
+	
+	return 0;
+}
+
+double distance(double lat1, double long1, double lat2, double long2) {
+	double D;
+	D = 2 * asin(sqrt( pow(sin( (lat1 - lat2) / 2), 2) + cos(lat1) * cos(lat2) * (pow(sin((long1 - long2) / 2), 2))));
+	return D;
+}

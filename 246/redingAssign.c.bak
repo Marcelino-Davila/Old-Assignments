@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+void PrintScoreVals(const int scoreVals[], int numVals) {
+   int i;
+
+   for (i = 0; i < numVals; ++i) {
+      printf("%d\n", scoreVals[i]);
+   }
+}
+
+int main(void) {
+   const int NUM_SCORES = 4;
+   int quizScores[NUM_SCORES];
+   int i;
+
+   for (i = 0; i < NUM_SCORES; ++i) {
+      scanf("%d", &(quizScores[i]));
+   }
+
+   PrintScoreVals(quizScores, NUM_SCORES);
+
+   return 0;
+}
